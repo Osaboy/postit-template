@@ -1,0 +1,10 @@
+<p>
+  <% render @post.categories %> 
+  <!--This is going to assume that there is a folder called categories and that there is a partial there called _category-->
+<p>
+<%= render 'shared/content_title', title: @post.title %> 
+<!--no underscore before partial html template-->
+<p>
+  <%= @post.description %>
+</p>
+<hr/>
