@@ -1,0 +1,25 @@
+  
+  <% if @post.errors.any? %>
+    <div class='alert alert-error'>
+      <h5>There were some errors:</h5>
+      <ul>
+        <% @post.errors.full_messages.each do |msg| %>
+        <li>
+          <%= msg %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+ 
+<!--Rails model-backed forms-->  
+<%-#-- syntax is <%= form_for OBJ do |f| -%>
+<%= form_for @post do |f| %> 
+  <%= f.label :title, "Title" %>
+  <%= f.text_field :title %>
+  <br/>
+  <%= f.label :url, "URL" %>
+  <%= f.text_field :url %>
+  <br/>
+  <%= f.submit "Create Post", class: 'btn btn-primary' %>
+<% end %>
