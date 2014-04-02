@@ -21,10 +21,11 @@ class PostsController < ApplicationController
   def create #handle the submission of the new post form
     
     @post = Post.new(post_params)
+    @post.creator = User.first #TODO change once we have authentication
 
     if @post.save
       flash[:notice] = "Your post was created."
-      redirect_to post_path
+      redirect_to post_path(@post)
     else #validation error
       render :new
     end

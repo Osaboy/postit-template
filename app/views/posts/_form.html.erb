@@ -1,7 +1,7 @@
   
   <% if @post.errors.any? %>
     <div class='alert alert-error'>
-      <h5>There were some errors:</h5>
+      <h5>Please fix the following errors:</h5>
       <ul>
         <% @post.errors.full_messages.each do |msg| %>
         <li>
@@ -11,15 +11,23 @@
       </ul>
     </div>
   <% end %>
- 
-<!--Rails model-backed forms-->  
-<%-#-- syntax is <%= form_for OBJ do |f| -%>
-<%= form_for @post do |f| %> 
-  <%= f.label :title, "Title" %>
-  <%= f.text_field :title %>
-  <br/>
-  <%= f.label :url, "URL" %>
-  <%= f.text_field :url %>
-  <br/>
-  <%= f.submit "Create Post", class: 'btn btn-primary' %>
-<% end %>
+
+<div class='well'>
+  <!--Rails model-backed forms-->  
+  <%-#-- syntax is <%= form_for OBJ do |f| -%>
+  <%= form_for @post do |f| %>
+    <div class='control-group'>
+      <%= f.label :title, "Title" %>
+      <%= f.text_field :title %>
+    </div>
+    <div class='control-group'> 
+      <%= f.label :url, "URL" %>
+      <%= f.text_field :url %>
+    </div> 
+    <div class='control-group'>
+    <%= f.label :description, "URL" %>
+      <%= f.text_area :description, rows: 5, cols: 100 %>
+    </div> 
+    <%= f.submit "Create Post", class: 'btn btn-primary' %>
+  <% end %>
+</div> 
