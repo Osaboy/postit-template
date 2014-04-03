@@ -1,13 +1,13 @@
 <%= render 'shared/content_title', title: 'All Posts' %>
 <!--no underscore before partial html template-->
 
-#This does gives an error
+#Why does this produce an error?
 <% @posts.each do |post| %>
   <% binding pry %>
   <%= render 'post' %>
 <% end %>
 
-#This does not
+#This code snippet works
 <#% if !@posts.empty? %>
   <%= render @posts %>
   <!-- This is how to render partial with collection -->
