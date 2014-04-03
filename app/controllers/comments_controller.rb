@@ -1,7 +1,8 @@
 class CommentsController < ApplicationController
+  
+####################### CREATE A COMMENT #######################
   def create
     #binding.pry
-
     @post = Post.find(params[:post_id])
     @comment = @post.comments.build(comment_params) #stop assignment, mass assigning body
              # Comment.new(params.require(:comment).permit(:body)) #stop assignment, mass assigning body
@@ -16,15 +17,10 @@ class CommentsController < ApplicationController
 
   private
 
-  def comment_params
-    
-    params.require(:comment).permit(:body)
+####################### PRIVATE COMMENTS CONTROLLER METHODS #######################
 
-    #if user.admin?
-    #  params.require(:post).permit!
-    #else
-    #  params.require(:post).permit(:title, :url)
-    #end
+  def comment_params
+    params.require(:comment).permit(:body)
   end
 
 end

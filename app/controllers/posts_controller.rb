@@ -5,21 +5,25 @@ class PostsController < ApplicationController
 
   # 2. redirect based on some condition
 
+####################### DISPLAYING EXISTING POSTS #######################
   def index
     @posts = Post.all
+    #binding pry
   end
 
   def show
     @comment = Comment.new
+    @category = Category.new
     render :show  #this would have happened by default anyways
   end
+
+####################### MAKE A NEW POST #######################
 
   def new #show the post form
     @post = Post.new
   end
 
-  def create #handle the submission of the new post form
-    
+  def create #handle the submission of the new post form   
     @post = Post.new(post_params)
     @post.creator = User.first #TODO change once we have authentication
 
@@ -30,6 +34,8 @@ class PostsController < ApplicationController
       render :new
     end
   end
+
+####################### MODIFY AN EXISTING POST #######################
 
   def edit #display the edit post form /posts/:id/edit
   end
@@ -44,6 +50,8 @@ class PostsController < ApplicationController
   end
 
   private
+
+####################### PRIVATE POSTS CONTROLLER METHODS #######################
 
   def post_params
     
