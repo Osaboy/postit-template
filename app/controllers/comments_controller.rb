@@ -4,9 +4,12 @@ class CommentsController < ApplicationController
   def create
     #binding.pry
     @post = Post.find(params[:post_id])
-    @comment = @post.comments.build(comment_params) #stop assignment, mass assigning body
+    @comment = @post.comments.build(comment_params) #mass assign via strong parameters
              # Comment.new(params.require(:comment).permit(:body)) #stop assignment, mass assigning body
              # @post.comments.new(params.require(:comment).permit(:body))
+    #@comment = Comment.new(params.require(:comment).permit(:body))
+    #@comment.post = @post
+    @comment.creator = User.first         
     if @comment.save
       flash[:notice] = "Your comment was added"
       redirect_to post_path(@post)

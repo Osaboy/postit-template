@@ -4,7 +4,6 @@
   <p class='pull-right'>
 [<%= link_to 'edit this post', edit_post_path(@post) %>]
 </p>
-  <!--no underscore before partial html template-->
 </h4>
 <p>
   <%= @post.description %>
@@ -12,10 +11,21 @@
 <hr/>
 
 <%= link_to 'show all posts', posts_path %>
-<h5>Create a comment:</h5>
+<hr/>
 <%= form_for [@post, @comment] do |f| %>
-  <%= f.text_area :body %>
-  <br/>
-  <%= f.submit "Create Comment", class: "btn btn-primary" %>
+  <%=render 'shared/errors', obj: @comment %>
+    <div class ='control-group'>
+    <%= f.label :body, 'Leave a comment' %>
+    <%= f.text_area :body, rows: 3, class: 'span4' %>
+    </div>
+    <%= f.submit "Create Comment", class: "btn btn-primary" %>  
 <% end %>
 
+<h5>Comments:</h5>
+<% @post.comments.each do |comment| %>
+  <div class ='well span8'>
+    <em><%= comment.body %></em>
+    <span class='quiet'>comment by </span><%= comment.creator.username %>
+    <small> at <%= display_datetime(comment.created_at) %></small>
+  </div>
+<% end %>

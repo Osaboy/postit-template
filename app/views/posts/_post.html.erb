@@ -4,13 +4,18 @@
     <h4>
       <%= link_to post.title, post_path(post) %>
       (<%= link_to 'edit', edit_post_path(post) %>)
+      <br/>
     </h4>
 
-    <p><%= post.description %></p>
+    <p>
+      <%= link_to post.url, fix_url(post.url) %>
+      <br/>
+      <%= post.description %>
+    </p>
     <p>
       <span class='quiet'> posted by </span> <%= post.creator.username %>
       <small>
-        at <%= post.created_at%>
+        at <%= display_datetime(post.created_at)%>
       </small>
     </p>
     <small>
