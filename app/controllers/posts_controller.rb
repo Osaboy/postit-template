@@ -4,6 +4,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update]
 
   # 2. redirect based on some condition
+  before_action :require_user, except: [:index, :show]
 
 ####################### DISPLAYING EXISTING POSTS #######################
   def index
@@ -25,7 +26,7 @@ class PostsController < ApplicationController
 
   def create #handle the submission of the new post form   
     @post = Post.new(post_params)
-    @post.creator = User.first #TODO change once we have authentication
+    @post.creator = current_user #TODO change once we have authentication
 
     if @post.save
       flash[:notice] = "Your post was created."

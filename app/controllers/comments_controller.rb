@@ -1,4 +1,7 @@
 class CommentsController < ApplicationController
+
+ # 2. redirect based on some condition
+before_action :require_user
   
 ####################### CREATE A COMMENT #######################
   def create
@@ -9,7 +12,7 @@ class CommentsController < ApplicationController
              # @post.comments.new(params.require(:comment).permit(:body))
     #@comment = Comment.new(params.require(:comment).permit(:body))
     #@comment.post = @post
-    @comment.creator = User.first         
+    @comment.creator = current_user         
     if @comment.save
       flash[:notice] = "Your comment was added"
       redirect_to post_path(@post)
