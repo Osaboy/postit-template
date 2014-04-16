@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
 
+####################### CREATE A SESSION #######################
   def new
     
   end
@@ -28,6 +29,8 @@ class SessionsController < ApplicationController
     end
 
   end
+
+####################### DESTROY A SESSION #######################
 
   def destroy
     session[:user_id] = nil
