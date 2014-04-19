@@ -25,7 +25,7 @@ before_action :require_same_user, only: [:edit, :update]
   end
 
   def show
-
+    #binding.pry
   #      @user = current_user 
   #      render :show
   #  else

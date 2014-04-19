@@ -1,18 +1,24 @@
-<h4>
-  Hi there, you're viewing 
-  <%= render 'shared/content_title', title: @post.title %> 
-  <% if logged_in? %>
-    <p class='pull-right'>
-      [<%= link_to 'edit this post', edit_post_path(@post) %>]
-    </p>
-  <% end %>
-</h4>
+<% @post.categories.each do |category| %>
+  <%= render category %>
+<% end %>
+<p/>
+<p class='pull-right'>
+  <%= link_to 'show all posts', posts_path %>
+</p>
+<%= render 'shared/content_title', title: @post.title %> 
+
+<% if logged_in? %>
+  <p class='pull-right'>
+    [<%= link_to 'edit this post', edit_post_path(@post) %>]
+  </p>
+<% end %>
+
+<p>
+  <%= link_to @post.url %>
+</p>
 <p>
   <%= @post.description %>
 </p>
-<hr/>
-
-<%= link_to 'show all posts', posts_path %>
 <hr/>
 
 <% if logged_in? %>

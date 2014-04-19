@@ -21,7 +21,26 @@ before_action :require_user
     end
   end
 
-  private
+####################### VOTE ACTION #######################
+
+  def vote
+    #binding.pry
+    
+    @comment = Comment.find(params[:id])
+    @vote = Vote.create(voteable: @comment, creator: current_user, vote: params[:vote])
+
+    if !@vote.errors.any? #instead of @votes.valid?
+      flash[:notice] = "Your vote was counted."
+    else
+      flash[:error] = "You can only vote on \"#{@comment.body}\" once."
+      #flash[:error] = "You can only vote on <strong>that</strong> once.".html_safe
+    end
+
+    redirect_to :back #whatever your referral is, go back to that url
+
+  end
+
+private
 
 ####################### PRIVATE COMMENTS CONTROLLER METHODS #######################
 

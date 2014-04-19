@@ -1,14 +1,14 @@
 class PostsController < ApplicationController
 
   # 1. set up instance variable for action
-  before_action :set_post, only: [:show, :edit, :update]
+  before_action :set_post, only: [:show, :edit, :update, :vote]
 
   # 2. redirect based on some condition
   before_action :require_user, except: [:index, :show]
 
 ####################### DISPLAYING EXISTING POSTS #######################
   def index
-    @posts = Post.all
+    @posts = Post.all.sort_by{|x| x.total_votes}.reverse
     #binding pry
   end
 
@@ -51,9 +51,25 @@ class PostsController < ApplicationController
     end
   end
 
-  private
+####################### VOTE ACTION #######################
+
+  def vote
+    #binding.pry
+    @vote = Vote.create(voteable: @post, creator: current_user, vote: params[:vote])
+
+    if !@vote.errors.any? #instead of @votes.valid?
+      flash[:notice] = "Your vote was counted."
+    else
+      flash[:error] = "You can only vote on \"#{@post.title}\" once."
+      #flash[:error] = "You can only vote on <strong>that</strong> once.".html_safe
+    end
+
+    redirect_to :back #whatever your referral is, go back to that url
+
+  end
 
 ####################### PRIVATE POSTS CONTROLLER METHODS #######################
+  private
 
   def post_params
     
