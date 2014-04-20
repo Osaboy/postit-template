@@ -68,7 +68,7 @@ before_action :require_same_user, only: [:edit, :update]
   end
 
   def require_same_user
-    if current_user.username != @user
+    if current_user.username != @user.username
       flash[:error] = "You're not allowed to do that"
       redirect_to root_path
     end
