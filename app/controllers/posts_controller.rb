@@ -54,18 +54,23 @@ class PostsController < ApplicationController
 ####################### VOTE ACTION #######################
 
   def vote
-    #binding.pry
+
     @vote = Vote.create(voteable: @post, creator: current_user, vote: params[:vote])
-
-    if !@vote.errors.any? #instead of @votes.valid?
-      flash[:notice] = "Your vote was counted."
-    else
-      flash[:error] = "You can only vote on \"#{@post.title}\" once."
-      #flash[:error] = "You can only vote on <strong>that</strong> once.".html_safe
+    
+    respond_to do |format|
+      format.html do
+        if !@vote.errors.any? #instead of @votes.valid?
+          flash[:notice] = "Your vote was counted."
+        else
+          flash[:error] = "You can only vote on \"#{@post.title}\" once."
+          #flash[:error] = "You can only vote on <strong>that</strong> once.".html_safe
+        end
+        redirect_to :back #whatever your referral is, go back to that url
+      end
+      format.js do
+        render :vote
+      end
     end
-
-    redirect_to :back #whatever your referral is, go back to that url
-
   end
 
 ####################### PRIVATE POSTS CONTROLLER METHODS #######################

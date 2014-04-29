@@ -28,7 +28,7 @@ before_action :require_user
     
     @comment = Comment.find(params[:id])
     @vote = Vote.create(voteable: @comment, creator: current_user, vote: params[:vote])
-
+    #@vote = Vote.create(voteable_type: "Comment", voteable_id: params[:id]) 
     if !@vote.errors.any? #instead of @votes.valid?
       flash[:notice] = "Your vote was counted."
     else
