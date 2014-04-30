@@ -21,17 +21,9 @@ before_action :require_same_user, only: [:edit, :update]
 ####################### DISPLAYING USER PROFILE #######################
 
   def index
-
   end
 
-  def show
-    #binding.pry
-  #      @user = current_user 
-  #      render :show
-  #  else
-  #    flash[:error] = "Please sign in"
-   #   render 'sessions/new'
-   # end 
+  def show 
   end
 
 ####################### MODIFY AN EXISTING USER #######################

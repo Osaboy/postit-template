@@ -31,7 +31,7 @@ class PostsController < ApplicationController
     if @post.save
       flash[:notice] = "Your post was created."
       redirect_to post_path(@post)
-    else #validation error
+    else # validation error
       render :new
     end
   end
