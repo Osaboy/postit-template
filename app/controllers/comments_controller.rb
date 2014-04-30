@@ -6,7 +6,9 @@ before_action :require_user
 ####################### CREATE A COMMENT #######################
   def create
     #binding.pry
-    @post = Post.find(params[:post_id])
+    #@post = Post.find(params[:post_id])
+    @post = Post.find_by(slug: params[:post_id])
+
     @comment = @post.comments.build(comment_params) #mass assign via strong parameters
              # Comment.new(params.require(:comment).permit(:body)) #stop assignment, mass assigning body
              # @post.comments.new(params.require(:comment).permit(:body))
@@ -25,7 +27,6 @@ before_action :require_user
 
   def vote
     #binding.pry
-    
     @comment = Comment.find(params[:id])
     @vote = Vote.create(voteable: @comment, creator: current_user, vote: params[:vote])
     #@vote = Vote.create(voteable_type: "Comment", voteable_id: params[:id]) 

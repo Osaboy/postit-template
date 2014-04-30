@@ -56,7 +56,7 @@ class PostsController < ApplicationController
   def vote
 
     @vote = Vote.create(voteable: @post, creator: current_user, vote: params[:vote])
-    
+
     respond_to do |format|
       format.html do
         if !@vote.errors.any? #instead of @votes.valid?
@@ -88,7 +88,8 @@ class PostsController < ApplicationController
   end
 
   def set_post
-    @post = Post.find(params[:id])
+   # @post = Post.find(params[:id])
+   @post = Post.find_by(slug: params[:id])
   end
 
 end

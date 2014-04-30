@@ -9,6 +9,9 @@ class Post < ActiveRecord::Base
   validates :url, presence: true
   validates :description, presence: true
 
+  before_save :generate_slug
+  #use before_create if you don't want the slug to be regenerated
+
   def total_votes
     up_votes - down_votes
   end
@@ -19,6 +22,14 @@ class Post < ActiveRecord::Base
 
   def down_votes
     self.votes.where(vote: false).size 
+  end
+
+  def to_param
+    self.slug
+  end
+
+  def generate_slug
+    self.slug = self.title.gsub(" ","-").downcase
   end
 
 end
