@@ -6,7 +6,7 @@ before_action :require_user, except: [:show]
 ####################### DISPLAYING EXISTING CATEGORIES #######################
 
 def show
-  @category = Category.find(params[:id])
+  @category = Category.find_by(slug: params[:id])
 end
 
 ####################### CREATE A NEW CATEGORY #######################
