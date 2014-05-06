@@ -56,7 +56,7 @@ before_action :require_same_user, only: [:edit, :update]
   end
 
   def user_params
-    params.required(:user).permit(:username, :password)
+    params.required(:user).permit(:username, :password, :time_zone)
   end
 
   def require_same_user
