@@ -7,7 +7,7 @@
 </p>
 <%= render 'shared/content_title', title: @post.title %> 
 
-<% if logged_in? %>
+<% if logged_in? and (current_user.admin? || (current_user.username == @post.creator.username)) %>
   <p class='pull-right'>
     [<%= link_to 'edit this post', edit_post_path(@post) %>]
   </p>

@@ -5,6 +5,7 @@ class PostsController < ApplicationController
 
   # 2. redirect based on some condition
   before_action :require_user, except: [:index, :show]
+  before_action :require_creator, only: [:edit, :update]
 
 ####################### DISPLAYING EXISTING POSTS #######################
   def index
@@ -90,6 +91,17 @@ class PostsController < ApplicationController
   def set_post
    # @post = Post.find(params[:id])
    @post = Post.find_by(slug: params[:id])
+  end
+
+  def post_edit_denied
+    flash[:error] = "Sorry, only the creator of the post can edit!"
+    redirect_to root_path
+  end
+  
+  def require_creator
+    #if logged_in? and (current_user.admin? || (current_user.username == post.creator.username))
+    #post_edit_denied if !logged_in? and (current_user != @post.creator)
+    post_edit_denied unless logged_in? and (current_user == @post.creator || current_user.admin?)
   end
 
 end
