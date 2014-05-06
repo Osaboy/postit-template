@@ -21,11 +21,25 @@ class ApplicationController < ActionController::Base
     !!current_user
   end
 
-  def require_user
+  def require_user # have to redirect
     if !logged_in?
       flash[:error] = "Oops, you must be signed in to perform that action"
       redirect_to root_path
     end
+  end
+
+  def require_admin # have to redirect
+    #access_denied if !logged_in? || !current_user.admin?
+    access_denied unless logged_in? and current_user.admin?
+    # check for logged_in? first to make sure that we have a user object   
+  end
+
+  def require_moderator # have to redirect
+  end
+
+  def access_denied
+    flash[:error] = "Sorry, only admins can create new Categories"
+    redirect_to root_path
   end
 
 end

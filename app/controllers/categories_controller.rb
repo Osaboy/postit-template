@@ -2,6 +2,7 @@ class CategoriesController < ApplicationController
 
  # 2. redirect based on some condition
 before_action :require_user, except: [:show]
+before_action :require_admin, only: [:new, :create] # can view categories
 
 ####################### DISPLAYING EXISTING CATEGORIES #######################
 
